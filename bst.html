@@ -7,70 +7,74 @@
     <title>Document</title>
   </head>
   <body>
-    <h3>Binary Search Tree</h3>
+    <h3>BST</h3>
     <script>
-      class BST {
+      class Node {
+        constructor(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+      }
+
+      class BinarySearchTree {
         constructor() {
           this.root = null;
         }
 
-        insert(value) {
-            if(!this.root) {
-                this.root=new Node(value)
-                return this
-            }
-
-           let current=this.root
-           while(true) {
-            
-            if(value < current.value) {
-                if(!current.leftchild) {
-                    current.leftchild = new Node(value)
-                    return this
-                }
-                current = current.leftchild
-            } else if(value > current.value) {
-                if(!current.rightchild) {
-                    current.rightchild = new Node(value)
-                    return this
-                }
-                current=current.rightchild
-            }
-           }
+        insert(data) {
+          let node = new Node(data);
+          if (this.root == null) {
+            this.root = node;
+          } else {
+            this.insertNode(this.root, node);
+          }
         }
 
-        search(value) {
-            let current = this.root
-            while(current.value !== value){
-                if(value < current.value) {
-                    current = current.leftchild
-                } else {
-                    current=current.rightchild
-                }
-                if(current === null) {
-                    return null
-                }
+        insertNode(root, newNode) {
+          if (newNode.data < root.data) {
+            if (root.left == null) {
+              root.left = newNode;
+            } else {
+              this.insertNode(root.left, newNode);
             }
-            return current
+          } else if (newNode.data > root.data) {
+            if (root.right == null) {
+              root.right = newNode;
+            } else {
+              this.insertNode(root.right, newNode);
+            }
+          }
         }
-      }
 
-      class Node {
-        constructor(value) {
-          this.value = value;
-          this.leftchild = null;
-          this.rightchild = null;
+        getRootNode() {
+          return this.root;
+        }
+
+        //traversal
+
+        preorder(root) {
+          if (root != null) {
+            console.log(root.data); 
+            this.preorder(root.left); 
+            this.preorder(root.right); 
+          }
         }
       }
 
-      const tree = new BST()
-      tree.insert(20)
-      tree.insert(10)
-      tree.insert(30)
-      tree.insert(500)
-      console.log(tree.search(30))
-     
-      console.log(tree.root)
+      let bst = new BinarySearchTree();
+
+      bst.insert(3);
+      bst.insert(5);
+      bst.insert(1);
+      bst.insert(6);
+      bst.insert(4);
+
+      let root = bst.getRootNode();
+
+      console.log("Preorder");
+      // bst.preorder(root);
+      console.log(root.data)
     </script>
   </body>
 </html>
