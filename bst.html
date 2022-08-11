@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Binary Search Tree</h3>
+    <script>
+      class BST {
+        constructor() {
+          this.root = null;
+        }
+
+        insert(value) {
+            if(!this.root) {
+                this.root=new Node(value)
+                return this
+            }
+
+           let current=this.root
+           while(true) {
+            
+            if(value < current.value) {
+                if(!current.leftchild) {
+                    current.leftchild = new Node(value)
+                    return this
+                }
+                current = current.leftchild
+            } else if(value > current.value) {
+                if(!current.rightchild) {
+                    current.rightchild = new Node(value)
+                    return this
+                }
+                current=current.rightchild
+            }
+           }
+        }
+
+        search(value) {
+            let current = this.root
+            while(current.value !== value){
+                if(value < current.value) {
+                    current = current.leftchild
+                } else {
+                    current=current.rightchild
+                }
+                if(current === null) {
+                    return null
+                }
+            }
+            return current
+        }
+      }
+
+      class Node {
+        constructor(value) {
+          this.value = value;
+          this.leftchild = null;
+          this.rightchild = null;
+        }
+      }
+
+      const tree = new BST()
+      tree.insert(20)
+      tree.insert(10)
+      tree.insert(30)
+      tree.insert(500)
+      console.log(tree.search(30))
+     
+      console.log(tree.root)
+    </script>
+  </body>
+</html>
